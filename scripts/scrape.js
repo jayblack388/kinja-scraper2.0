@@ -13,7 +13,7 @@ const contains = (obj, key, arr) => {
 
 module.exports = (choice, res) => {
   let url;
-  // const dbArticleArr = [];
+  const dbArticleArr = [];
   const resultArr = [];
   console.log(choice);
   switch (choice) {
