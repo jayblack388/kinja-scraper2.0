@@ -4,8 +4,15 @@
   "description": "React version of Kinja scraper",
   "main": "server.js",
   "scripts": {
+    "server": "node server",
+    "client": "node scripts/client",
+    "start": "concurrently \"mongod\" \"nodemon server\" \"yarn client\"",
+    "build-client": "node scripts/build",
+    "fs-install": "yarn && cd client && yarn",
+    "seed": "node scripts/seed",
+    "scrape": "node scripts/scrape",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "heroku-postbuild": "yarn seed && yarn build-client"
   },
   "repository": {
     "type": "git",

@@ -13,9 +13,9 @@ const contains = (obj, key, arr) => {
 
 module.exports = (choice, res) => {
   let url;
-  const dbArticleArr = [];
+  // const dbArticleArr = [];
   const resultArr = [];
-
+  console.log(choice);
   switch (choice) {
     case 'Gizmodo':
       url = 'http://www.gizmodo.com';
@@ -59,6 +59,43 @@ module.exports = (choice, res) => {
     default:
       console.log('Invalid Scrape Request');
   }
+  // const response = await axios.get(url);
+  // console.log(response)
+  // const dbHeadlineResults = await db.Headline.find({});
+  // console.log(dbHeadlineResults)
+
+  // const $ = cheerio.load(response.data);
+  // $('article').each(function(i, element) {
+  //   let header = $(this)
+  //     .children('header')
+  //     .children('h1')
+  //     .children('a');
+  //   let content = $(this).children('div.item__content');
+  //   let summary = content.children('div.excerpt').children('p');
+  //   let thumb = content
+  //     .find('picture')
+  //     .children('source')
+  //     .attr('data-srcset');
+
+  //   const result = {};
+  //   result.title = header.text();
+  //   result.link = header.attr('href');
+  //   result.summary = summary.text();
+  //   result.thumbnail = thumb;
+  //   if (!contains(result, result.link, dbHeadlineResults)) {
+  //     resultArr.push(result);
+  //   } else {
+  //     console.log('That article is already in the database');
+  //   }
+  // });
+  // db.Headline.create(resultArr)
+  //   .then(dbResultArr => {
+  //     res.json(dbResultArr);
+  //   })
+  //   .catch(err => {
+  //     res.json(err);
+  //   });
+
   axios.get(url).then(function(response) {
     db.Headline.find({}).then(function(dbResultArr) {
       dbResultArr.forEach(function(result) {
