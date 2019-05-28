@@ -1,0 +1,10 @@
+body {
+  height: 100%;
+  margin: 0;
+}
+html,
+body > #root,
+#App,
+.Section__container___1Gue_ {
+  height: 100%;
+}
