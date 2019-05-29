@@ -1,6 +1,4 @@
-import authReducer from './auth';
-import configReducer from './config';
-import userReducer from './user';
+import headlinesReducer from './headlines';
 const combineReducers = reducers => {
   return (state = {}, action) => {
     return Object.keys(reducers).reduce((nextState, key) => {
@@ -11,13 +9,9 @@ const combineReducers = reducers => {
 };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  config: configReducer,
-  user: userReducer,
+  headlines: headlinesReducer,
 });
 
-export { authInitialState as auth } from './auth';
-export { configInitialState as config } from './config';
-export { userInitialState as user } from './user';
+export { headlinesInitialState as headlines } from './headlines';
 
 export default rootReducer;

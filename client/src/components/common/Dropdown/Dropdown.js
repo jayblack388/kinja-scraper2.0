@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTransition } from 'react-spring';
+import { useOnClickOutside } from '../../../utils/customHooks';
 import {
   DropdownContainer,
   DropdownMenu,
   DropdownItem,
-  DropdownToggler,
+  DropdownToggler
 } from './Dropdown.styled';
 
 const Item = props => <DropdownItem>{props.item}</DropdownItem>;
@@ -13,8 +14,11 @@ const Dropdown = ({ items, message }) => {
   const transitions = useTransition(open, null, {
     from: { position: 'absolute', opacity: 0 },
     enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    leave: { opacity: 0 }
   });
+  const menuRef = useRef();
+  const memoClose = useCallback(() => setOpen(false), []);
+  useOnClickOutside(menuRef, memoClose);
   return (
     <DropdownContainer>
       {message && (
@@ -23,7 +27,7 @@ const Dropdown = ({ items, message }) => {
       {transitions.map(
         ({ item, key, props }) =>
           item && (
-            <DropdownMenu key={key} open={open} style={props}>
+            <DropdownMenu key={key} ref={menuRef} open={open} style={props}>
               {items && items.map(i => <Item item={i} />)}
             </DropdownMenu>
           )

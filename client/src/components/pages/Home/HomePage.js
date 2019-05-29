@@ -1,15 +1,21 @@
-import React from 'react';
-import { toast } from 'react-toastify';
+import React, { useEffect } from 'react';
 import { Page, Wrapper } from '../../containers';
-import { Button } from '../../common';
-const HomePage = props => {
-  const notify = () => toast('Wow so easy !');
+import { List, Loader } from '../../common';
+import { useGlobalState } from '../../../store/GlobalState';
+import { getHeadlines } from '../../../store/ducks/headlines';
 
+const HomePage = props => {
+  const [{ headlines: headLinesState }, dispatch] = useGlobalState();
+  const { isLoading, headlines } = headLinesState;
+  useEffect(() => {
+    getHeadlines(dispatch);
+  }, [dispatch]);
   return (
     <Page>
       <Wrapper>
-        <span>I'm the Home Page</span>
-        <Button onClick={notify} message={'stuff'} />
+        <Loader isLoading={isLoading}>
+          <List items={headlines} />
+        </Loader>
       </Wrapper>
     </Page>
   );

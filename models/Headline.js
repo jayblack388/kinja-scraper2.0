@@ -15,9 +15,6 @@ const HeadlineSchema = new Schema({
   summary: {
     type: String,
   },
-  thumbnail: {
-    type: String,
-  },
   date: { type: Date, default: Date.now },
 });
 

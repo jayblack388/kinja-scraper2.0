@@ -37,5 +37,9 @@
     "express": "^4.17.1",
     "mongoose": "^5.5.11",
     "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.1"
   }
 }

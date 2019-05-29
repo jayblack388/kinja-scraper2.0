@@ -8,7 +8,10 @@ const useRouter = () => {
   if (!routerContext) {
     throw new Error('use-react-router may only be used with react-router@^5.');
   }
-  useEffect(() => routerContext.history.listen(forceUpdate), [routerContext]);
+  useEffect(() => routerContext.history.listen(forceUpdate), [
+    routerContext,
+    forceUpdate
+  ]);
   return routerContext;
 };
 

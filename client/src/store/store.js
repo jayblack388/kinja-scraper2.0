@@ -1,9 +1,7 @@
-import { auth, config, user } from './ducks';
+import { headlines } from './ducks';
 
 export const store = {
-  auth,
-  config,
-  user
+  headlines
 };
 
 export { default as rootReducer } from './ducks';
