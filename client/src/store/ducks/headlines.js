@@ -56,6 +56,24 @@ export const initHeadlines = () => ({
   type: INITIALIZE_HEADLINES
 });
 
+export const scrapeHeadlines = ({ dispatch, choice }) => {
+  const url = `/api/headlines/scrape/${choice}`;
+  dispatch(headlinesRequest());
+  axios({
+    url,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'get'
+  })
+    .then(({ data }) => {
+      dispatch(headlinesSuccess(data));
+    })
+    .catch(e => {
+      dispatch(headlinesFailure(e));
+    });
+};
+
 export const getHeadlines = dispatch => {
   const url = `/api/headlines`;
   dispatch(headlinesRequest());
