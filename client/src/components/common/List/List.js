@@ -9,11 +9,12 @@ import {
 
 const HeadlineItem = props => {
   const { item } = props;
-  const { title, summary, link } = item;
+  const { title, summary, link, site } = item;
   return (
     <LinkWrapper href={link}>
       <StyledListItem {...props}>
         <TitleText>{title}</TitleText>
+        <a href={site}>{site}</a>
         <SummaryText>{summary}</SummaryText>
       </StyledListItem>
     </LinkWrapper>

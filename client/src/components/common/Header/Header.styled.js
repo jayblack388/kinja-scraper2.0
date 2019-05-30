@@ -9,4 +9,6 @@ export const Container = styled.nav`
   justify-content: space-between;
 `;
 
-export const Button = styled(DefaultButton)``;
+export const Button = styled(DefaultButton)`
+  width: ${props => props.width || '90%'};
+`;

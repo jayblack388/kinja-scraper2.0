@@ -7,7 +7,7 @@ import black from '../../../assets/jb-black.jpg';
 const BrandLink = () => {
   const [isHovered, toggleHover] = useHover();
   return (
-    <StyledBrandLink to="/">
+    <StyledBrandLink href="https://johnblackwell.dev">
       <Logo
         src={isHovered ? black : white}
         alt="logo"

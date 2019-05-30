@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const Logo = styled.img`
   height: 40px;
@@ -8,7 +7,7 @@ export const Logo = styled.img`
   border-radius: 50%;
 `;
 
-export const BrandLink = styled(Link)`
+export const BrandLink = styled.a`
   border: 1px solid ${props => props.theme.border || '#000'};
   border-radius: 50%;
   transition: none;

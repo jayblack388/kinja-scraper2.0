@@ -12,10 +12,13 @@ const contains = (obj, key, arr) => {
 };
 
 module.exports = async (choice, res) => {
+  let parsedChoice = choice;
+  if (parsedChoice.indexOf('%') >= 0) {
+    parsedChoice = parsedChoice.replace('&', ' ');
+  }
   let url;
-  // const dbArticleArr = [];
   const resultArr = [];
-  switch (choice) {
+  switch (parsedChoice) {
     case 'Gizmodo':
       url = 'https://gizmodo.com';
       break;
@@ -98,8 +101,15 @@ module.exports = async (choice, res) => {
     }
   });
   db.Headline.create(resultArr)
-    .then(dbResultArr => {
-      res.status(200).json(dbResultArr);
+    .then(createdResultArr => {
+      db.Headline.find({})
+        .sort({ date: -1 })
+        .then(dbResultArr => {
+          res.status(200).json(dbResultArr);
+        })
+        .catch(err => {
+          res.status(401).json(err);
+        });
     })
     .catch(err => {
       res.status(401).json(err);
