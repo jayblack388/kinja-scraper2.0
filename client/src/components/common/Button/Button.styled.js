@@ -30,6 +30,10 @@ export const StyledButton = styled.button`
   }
 `;
 
+export const ButtonText = styled.span`
+  font-weight: bold;
+`
+
 export const StyledLinkButton = styled.button`
   padding: 0.8rem 1.6rem;
   color: ${props => (props.blue ? props.theme.primaryColor : props.theme.dark)};

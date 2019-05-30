@@ -9,7 +9,7 @@ import {
 } from './Dropdown.styled';
 
 const Item = props => <DropdownItem {...props}>{props.item}</DropdownItem>;
-const Dropdown = ({ items, menuProps, message, open, setOpen }) => {
+const Dropdown = ({ items = [], menuProps, message, open, setOpen }) => {
   const transitions = useTransition(open, null, {
     from: { position: 'absolute', opacity: 0 },
     enter: { opacity: 1 },
@@ -21,7 +21,11 @@ const Dropdown = ({ items, menuProps, message, open, setOpen }) => {
   return (
     <DropdownContainer>
       {message && (
-        <DropdownToggler message={message} onClick={() => setOpen(!open)} />
+        <DropdownToggler
+          disabled={items.length === 0}
+          message={message}
+          onClick={() => setOpen(!open)}
+        />
       )}
       {transitions.map(
         ({ item, key, props }) =>

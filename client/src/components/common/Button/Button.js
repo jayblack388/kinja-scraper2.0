@@ -1,14 +1,22 @@
 import React from 'react';
-import { StyledButton, StyledLinkButton } from './Button.styled';
+import { StyledButton, StyledLinkButton, ButtonText } from './Button.styled';
 
 export const Button = props => {
-  const { message, children = <span /> } = props;
-  return <StyledButton {...props}>{message || children}</StyledButton>;
+  const { message, children } = props;
+  return (
+    <StyledButton {...props}>
+      <ButtonText>{message || children}</ButtonText>
+    </StyledButton>
+  );
 };
 
 export const LinkButton = props => {
   const { message, children = <span /> } = props;
-  return <StyledLinkButton {...props}>{message || children}</StyledLinkButton>;
+  return (
+    <StyledLinkButton {...props}>
+      <ButtonText>{message || children}</ButtonText>
+    </StyledLinkButton>
+  );
 };
 
 export default Button;
