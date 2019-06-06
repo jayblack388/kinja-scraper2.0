@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import flex from '../../../utils/styles/flex';
+import { flex } from '../../../utils/styles/helpers';
 
 export const Wrapper = styled.section`
   ${props => flex(props)}

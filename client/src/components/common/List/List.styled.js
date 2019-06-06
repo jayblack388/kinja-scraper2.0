@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import flex from '../../../utils/styles/flex';
+import { flex } from '../../../utils/styles/helpers';
 
 export const StyledList = styled.ul`
   padding: 0.25rem 0.5rem;
