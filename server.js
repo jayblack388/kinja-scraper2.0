@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors');
 const routes = require('./routes');
+/* eslint-disable-next-line */
+const log = console.log;
 
 const PORT = process.env.PORT || 3001;
 
@@ -22,9 +24,11 @@ mongoose.Promise = global.Promise;
 const databaseUri = 'mongodb://localhost:27017/kinja-scraper';
 
 mongoose.connect(process.env.MONGODB_URI || databaseUri, {
-  useNewUrlParser: true
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 app.listen(PORT, () => {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+  log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
