@@ -30,24 +30,27 @@
   },
   "homepage": "https://github.com/jayblack388/kinja-scraper2.0#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.5.11",
-    "morgan": "^1.9.1"
+    "mongoose": "^5.7.11",
+    "morgan": "^1.9.1",
+    "node-cron": "^2.0.3"
   },
   "devDependencies": {
-    "color": "^3.1.0",
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.19.1",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.1",
-    "react-spring": "^8.0.20",
-    "react-toastify": "^5.1.1",
-    "react": "^16.8.6",
-    "styled-components": "^4.2.0"
+    "color": "^3.1.2",
+    "concurrently": "^5.0.0",
+    "eslint-plugin-node": "^10.0.0",
+    "jdb-components": "^0.1.37",
+    "nodemon": "^1.19.4",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.2.0",
+    "react-spring": "^8.0.27",
+    "react-toastify": "^5.4.1",
+    "styled-components": "^4.4.1"
   }
 }
