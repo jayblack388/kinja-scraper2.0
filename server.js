@@ -5,7 +5,8 @@ const logger = require("morgan");
 const cors = require("cors");
 const cron = require("node-cron");
 const routes = require("./routes");
-const scrape = require("./scripts/scrape");
+const { scrapeAll } = require("./scripts/scrape");
+const { formatTime } = require("./utils");
 /* eslint-disable-next-line */
 const log = console.log;
 
@@ -31,10 +32,17 @@ mongoose.connect(process.env.MONGODB_URI || databaseUri, {
   useUnifiedTopology: true
 });
 
-// cron.schedule('* * * * *', () => {
-
-// })
-scrape();
+cron.schedule("0 * * * *", async () => {
+  const beginningTime = Date.now();
+  const formattedBeginningDate = formatTime(beginningTime, "MM/dd/yyyy");
+  const formattedBeginningTime = formatTime(beginningTime, "HH:mm:ss");
+  console.log(`[CRON-JOB] Scrape request beginning on ${formattedBeginningDate} at ${formattedBeginningTime}`);
+  await scrapeAll();
+  const endTime = Date.now();
+  const formattedEndDate = formatTime(endTime, "MM/dd/yyyy");
+  const formattedEndTime = formatTime(endTime, "HH:mm:ss");
+  console.log(`[CRON-JOB] Scrape request ending on ${formattedEndDate} at ${formattedEndTime}`);
+});
 
 app.listen(PORT, () => {
   log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
