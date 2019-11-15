@@ -1,13 +1,15 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const db = require("../../models");
 const { KINJA_SITES } = require("../../constants");
+const db = require("../../models");
+const { formatTime } = require("../../utils");
 const {
   contains,
   scrape2Children,
   scrape3Children,
   scrape4Children
 } = require("./helpers");
+const log = console.log;
 
 // TODO write test and then apply to each site, look for edges
 
@@ -19,7 +21,7 @@ const checkHeadline = ({ headline, dbHeadlineResults, scrapedHeadlines }) => {
   ) {
     scrapedHeadlines.push(headline);
   } else {
-    // console.log("That article is already in the database");
+    // log("That article is already in the database");
     return;
   }
 };
@@ -52,24 +54,24 @@ const scrape = async url => {
       db.Headline.create(headlinesWithoutDupes)
         .then(createdResultArr => {
           const newRecords = createdResultArr.length;
-          console.log("\n");
-          console.log("================================================");
-          console.log(`Scrape of ${url} Complete, ${newRecords} new records`);
-          console.log("================================================");
+          log("\n");
+          log("================================================");
+          log(`Scrape of ${url} Complete, ${newRecords} new records`);
+          log("================================================");
           resolve({ success: true, newRecords, error: null });
         })
         .catch(error => {
-          console.log("\n");
-          console.log("================================================");
-          console.log(`Scrape of ${url} interupted, Error ::: ${error}`);
-          console.log("================================================");
+          log("\n");
+          log("================================================");
+          log(`Scrape of ${url} interupted, Error ::: ${error}`);
+          log("================================================");
           reject({ success: false, newRecords: 0, error });
         });
     } else {
-      console.log("\n");
-      console.log("================================================");
-      console.log(`Scrape of ${url} Complete, no new records`);
-      console.log("================================================");
+      log("\n");
+      log("================================================");
+      log(`Scrape of ${url} Complete, no new records`);
+      log("================================================");
       resolve({ success: true, newRecords: 0, error: null });
     }
   });
@@ -86,17 +88,29 @@ const scrapeAll = async () => {
     }
   }
   if (errors.length > 0) {
-    console.log("\n");
-    console.log("================================================");
-    console.log(`There was a problem Scraping Kinja, Error: ${errors}`);
-    console.log("================================================");
+    log("\n");
+    log("================================================");
+    log(`There was a problem Scraping Kinja, Error: ${errors}`);
+    log("================================================");
   } else {
-    console.log("\n");
-    console.log("================================================");
-    console.log(`Scrape of Kinja Complete, Total records added ${totalRecords}`);
-    console.log("================================================");
+    log("\n");
+    log("================================================");
+    log(`Scrape of Kinja Complete, Total records added ${totalRecords}`);
+    log("================================================");
   }
   // const { error, success, newRecords } = await scrape(KINJA_SITES[0]);
 };
 
-module.exports = { scrape, scrapeAll };
+const scrapeAllWithLogging = async (cron = false) => {
+  const beginningTime = Date.now();
+  const formattedBeginningDate = formatTime(beginningTime, "MM/dd/yyyy");
+  const formattedBeginningTime = formatTime(beginningTime, "HH:mm:ss");
+  log(`${cron ? '[CRON-JOB] ' : ''}Scrape request beginning on ${formattedBeginningDate} at ${formattedBeginningTime}`);
+  await scrapeAll();
+  const endTime = Date.now();
+  const formattedEndDate = formatTime(endTime, "MM/dd/yyyy");
+  const formattedEndTime = formatTime(endTime, "HH:mm:ss");
+  log(`${cron ? '[CRON-JOB] ' : ''}Scrape request ending on ${formattedEndDate} at ${formattedEndTime}`);
+}
+
+module.exports = { scrape, scrapeAll, scrapeAllWithLogging };

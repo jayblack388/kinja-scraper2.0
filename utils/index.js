@@ -1,2 +1,3 @@
 const formatTime = require("./formatTime");
-module.exports = { formatTime };
+const seedDB = require("./seedDB");
+module.exports = { formatTime, seedDB };
