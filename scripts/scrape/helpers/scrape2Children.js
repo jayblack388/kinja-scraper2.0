@@ -1,4 +1,6 @@
+const getSite = require("./getSite");
 function scrape2Children($, element) {
+  // console.log(element);
   const content = $(element).children("div:nth-child(2)");
   let headerContainer = $(content).children("div:nth-child(5)");
   let header = $(headerContainer).children("a");
@@ -10,6 +12,12 @@ function scrape2Children($, element) {
     header = $(headerContainer).children("a");
     link = header.attr("href");
     title = header.children("h2").text();
+    if (link === undefined || title === undefined) {
+      headerContainer = $(content).children("div:nth-child(3)");
+      header = $(headerContainer).children("a");
+      link = header.attr("href");
+      title = header.children("h2").text();
+    }
   } else {
     const tagContainer = $(content).children("div:nth-child(4)");
     $(tagContainer)
@@ -24,20 +32,12 @@ function scrape2Children($, element) {
         tags.push(tag);
       });
   }
-  const siteWithPosSub = link.split("/")[2];
-  const splitSiteWithPosSub = siteWithPosSub.split(".");
-  let site;
-  if (splitSiteWithPosSub.length > 2) {
-    splitSiteWithPosSub.splice(0, 1);
-    site = splitSiteWithPosSub.join(".");
-  } else {
-    site = siteWithPosSub;
-  }
-  // console.log("Link => ", link);
-  // console.log("Title => ", title);
-  // console.log("Tags => ", tags);
-  // console.log("Site => ", site);
-  // console.log("================================================");
+  const site = getSite(link);
+  console.log("Link => ", link);
+  console.log("Title => ", title);
+  console.log("Tags => ", tags);
+  console.log("Site => ", site);
+  console.log("================================================");
   const headline = {
     link,
     title,

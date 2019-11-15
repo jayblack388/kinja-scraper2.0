@@ -1,15 +1,42 @@
+const getSite = require('./getSite');
 function scrape4Children($, element) {
   const content = $(element).children("div:nth-child(4)");
-  const headerContainer = $(content)
+  let headerContainer = $(content)
     .children("div")
     .children("div:nth-child(2)");
-  const header = $(headerContainer).children("a");
-  const link = header.attr("href");
-  const title = header.children("h2").text();
-  const tagContainer = $(content)
+  let header = $(headerContainer).children("a");
+  let link = header.attr("href");
+  let title = header.children("h2").text();
+  let tagContainer = $(content)
     .children("div")
     .children("div")
     .children("a");
+  if (link === undefined) {
+    headerContainer = $(content)
+      .children("div:nth-child(4)")
+      .children("div");
+    header = $(headerContainer).children("div:nth-child(2)");
+    link = header.attr("href");
+    title = header.children("h2").text();
+    tagContainer = $(headerContainer).children("div");
+    if (link === undefined) {
+      header = $(headerContainer).children("div");
+      const headlineArray = [];
+      $(`${header} > div > p > a`).each((i, subLink) => {
+        const linkFromList = header.attr("href");
+        const titleFromList = header.text();
+        const siteFromList = getSite(linkFromList);
+        const result = {
+          link: linkFromList,
+          title: titleFromList,
+          tags: [],
+          site: siteFromList
+        };
+        headlineArray.push(result);
+      });
+      return headlineArray;
+    }
+  }
   const tags = [];
   const tag = {
     link: $(tagContainer).attr("href"),
@@ -18,15 +45,7 @@ function scrape4Children($, element) {
       .text()
   };
   tags.push(tag);
-  const siteWithPosSub = link.split("/")[2];
-  const splitSiteWithPosSub = siteWithPosSub.split(".");
-  let site;
-  if (splitSiteWithPosSub.length > 2) {
-    splitSiteWithPosSub.splice(0, 1);
-    site = splitSiteWithPosSub.join(".");
-  } else {
-    site = siteWithPosSub;
-  }
+  const site = getSite(link);
   // console.log("Link => ", link);
   // console.log("Title => ", title);
   // console.log("Tags => ", tags);

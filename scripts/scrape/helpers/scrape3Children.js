@@ -1,12 +1,20 @@
+const getSite = require("./getSite");
+
 function scrape3Children($, element) {
   const content = $(element).children("div:nth-child(3)");
   const headerContainer = $(content)
     .children("div")
     .children("div");
-  const header = $(headerContainer).children("a");
-  const link = header.attr("href");
-  const title = header.children("h2").text();
+  let header = $(headerContainer).children("a");
+  let link = header.attr("href");
+  let title = header.children("h2").text();
+  if (link === undefined || title === undefined) {
+    header = $(headerContainer).find("a");
+    link = header.attr("href");
+    title = header.text();
+  }
   const tagContainer = $(content).children("div:nth-child(4)");
+  if (link === undefined) console.log(element);
   const tags = [];
   $(tagContainer)
     .children("a")
@@ -19,15 +27,7 @@ function scrape3Children($, element) {
       };
       tags.push(tag);
     });
-  const siteWithPosSub = link.split("/")[2];
-  const splitSiteWithPosSub = siteWithPosSub.split(".");
-  let site;
-  if (splitSiteWithPosSub.length > 2) {
-    splitSiteWithPosSub.splice(0, 1);
-    site = splitSiteWithPosSub.join(".");
-  } else {
-    site = siteWithPosSub;
-  }
+  const site = getSite(link);
   // console.log("Link => ", link);
   // console.log("Title => ", title);
   // console.log("Tags => ", tags);
