@@ -33,17 +33,33 @@ function scrape2Children($, element) {
       });
   }
   const site = getSite(link);
-  console.log("Link => ", link);
-  console.log("Title => ", title);
-  console.log("Tags => ", tags);
-  console.log("Site => ", site);
-  console.log("================================================");
+  // console.log("Link => ", link);
+  // console.log("Title => ", title);
+  // console.log("Tags => ", tags);
+  // console.log("Site => ", site);
+  // console.log("================================================");
   const headline = {
     link,
     title,
     tags,
     site
   };
+  if (!headline.link) {
+    console.log(headline);
+    return;
+  } else if (!headline.title) {
+    const splitLink = headline.link.split("/");
+    let fallbackTitle = splitLink[splitLink.length - 1];
+    fallbackTitle = `${fallbackTitle
+      .charAt(0)
+      .toUpperCase()}${fallbackTitle.slice(1)}`;
+    headline.title = fallbackTitle;
+    if (!headline.title) {
+      console.log(headline);
+      return;
+    }
+    return headline;
+  }
   return headline;
 }
 module.exports = scrape2Children;

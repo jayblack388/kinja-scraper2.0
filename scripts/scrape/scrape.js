@@ -19,7 +19,8 @@ const checkHeadline = ({ headline, dbHeadlineResults, scrapedHeadlines }) => {
   ) {
     scrapedHeadlines.push(headline);
   } else {
-    console.log("That article is already in the database");
+    // console.log("That article is already in the database");
+    return;
   }
 };
 
@@ -45,126 +46,57 @@ const scrape = async url => {
       checkHeadline({ headline, dbHeadlineResults, scrapedHeadlines });
     }
   });
-  if (scrapedHeadlines.length !== 0) {
-    db.Headline.create(scrapedHeadlines)
-      .then(createdResultArr => {
-        console.log("\n");
-        console.log("\n");
-        console.log(`Scrape of ${url} Complete`);
-        console.log("================================================");
-      })
-      .catch(err => {
-        console.log("err => ", err);
-      });
+  const headlinesWithoutDupes = [...new Set(scrapedHeadlines)];
+  return new Promise((resolve, reject) => {
+    if (headlinesWithoutDupes.length !== 0) {
+      db.Headline.create(headlinesWithoutDupes)
+        .then(createdResultArr => {
+          const newRecords = createdResultArr.length;
+          console.log("\n");
+          console.log("================================================");
+          console.log(`Scrape of ${url} Complete, ${newRecords} new records`);
+          console.log("================================================");
+          resolve({ success: true, newRecords, error: null });
+        })
+        .catch(error => {
+          console.log("\n");
+          console.log("================================================");
+          console.log(`Scrape of ${url} interupted, Error ::: ${error}`);
+          console.log("================================================");
+          reject({ success: false, newRecords: 0, error });
+        });
+    } else {
+      console.log("\n");
+      console.log("================================================");
+      console.log(`Scrape of ${url} Complete, no new records`);
+      console.log("================================================");
+      resolve({ success: true, newRecords: 0, error: null });
+    }
+  });
+};
+const scrapeAll = async () => {
+  let totalRecords = 0;
+  const errors = [];
+  for (const url in KINJA_SITES) {
+    const { error, success, newRecords } = await scrape(KINJA_SITES[url]);
+    if (error && !success) {
+      errors.push(error);
+    } else {
+      totalRecords += newRecords;
+    }
   }
+  if (errors.length > 0) {
+    console.log("\n");
+    console.log("================================================");
+    console.log(`There was a problem Scraping Kinja, Error: ${errors}`);
+    console.log("================================================");
+  } else {
+    console.log("\n");
+    console.log("================================================");
+    console.log(`Scrape of Kinja Complete, Total records added ${totalRecords}`);
+    console.log("================================================");
+  }
+  // const { error, success, newRecords } = await scrape(KINJA_SITES[0]);
 };
-module.exports = () => {
-  // KINJA_SITES.forEach(url => {
-  // scrape(url);
-  // });
-  scrape(KINJA_SITES[0]);
-};
-// module.exports = async (choice, res) => {
-//   let parsedChoice = choice;
-//   if (parsedChoice.indexOf('%') >= 0) {
-//     parsedChoice = parsedChoice.replace('&', ' ');
-//   }
-//   let url;
-//   const resultArr = [];
-//   switch (parsedChoice) {
-//     case 'Gizmodo':
-//       url = 'https://gizmodo.com';
-//       break;
-//     case 'The A.V. Club':
-//       url = 'https://avclub.com';
-//       break;
-//     case 'Deadspin':
-//       url = 'https://deadspin.com';
-//       break;
-//     case 'Jalopnik':
-//       url = 'https://jalopnik.com';
-//       break;
-//     case 'Jezebel':
-//       url = 'https://jezebel.com';
-//       break;
-//     case 'Kotaku':
-//       url = 'https://kotaku.com';
-//       break;
-//     case 'Lifehacker':
-//       url = 'https://lifehacker.com';
-//       break;
-//     case 'Splinter':
-//       url = 'https://splinternews.com';
-//       break;
-//     case 'The Root':
-//       url = 'https://theroot.com';
-//       break;
-//     case 'The Takeout':
-//       url = 'https://thetakeout.com';
-//       break;
-//     case 'Clickhole':
-//       url = 'https://clickhole.com';
-//       break;
-//     case 'The Onion':
-//       url = 'https://theonion.com';
-//       break;
-//     case 'The Inventory':
-//       url = 'https://theinventory.com';
-//       break;
-//     default:
-//       console.log('Invalid Scrape Request');
-//   }
-//   const response = await axios.get(url);
-//   const dbHeadlineResults = await db.Headline.find({}).exec();
 
-//   const $ = cheerio.load(response.data);
-
-//   $('article').each(function(i, element) {
-//     const header = $(this).find('a');
-//     if (header.attr('href').includes('/c/')) {
-//       return;
-//     }
-//     const link = header.attr('href');
-
-//     const siteWithPosSub = link.split('/')[2];
-//     const splitSiteWithPosSub = siteWithPosSub.split('.');
-//     let site;
-//     if (splitSiteWithPosSub.length > 2) {
-//       splitSiteWithPosSub.splice(0, 1);
-//       site = splitSiteWithPosSub.join('.');
-//     } else {
-//       site = siteWithPosSub;
-//     }
-
-//     const title = header.children('h2').text();
-//     const summary = $(this)
-//       .find('p')
-//       .text();
-
-//     const result = {
-//       title,
-//       link,
-//       site,
-//       summary
-//     };
-//     if (!contains(result, 'link', dbHeadlineResults)) {
-//       resultArr.push(result);
-//     } else {
-//       console.log('That article is already in the database');
-//     }
-//   });
-//   db.Headline.create(resultArr)
-//     .then(createdResultArr => {
-//       db.Headline.find({})
-//         .sort({ date: -1 })
-//         .then(dbResultArr => {
-//           res.status(200).json(dbResultArr);
-//         })
-//         .catch(err => {
-//           res.status(401).json(err);
-//         });
-//     })
-//     .catch(err => {
-//       res.status(401).json(err);
-//     });
-// };
+module.exports = { scrape, scrapeAll };

@@ -39,6 +39,10 @@ function scrape3Children($, element) {
     tags,
     site
   };
+  if (!headline.link || !headline.title) {
+    console.log(headline);
+    return;
+  }
   return headline;
 }
 module.exports = scrape3Children;

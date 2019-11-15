@@ -1,4 +1,4 @@
-const getSite = require('./getSite');
+const getSite = require("./getSite");
 function scrape4Children($, element) {
   const content = $(element).children("div:nth-child(4)");
   let headerContainer = $(content)
@@ -57,6 +57,10 @@ function scrape4Children($, element) {
     tags,
     site
   };
+  if (!headline.link || !headline.title) {
+    console.log(headline);
+    return;
+  }
   return headline;
 }
 module.exports = scrape4Children;
