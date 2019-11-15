@@ -10,43 +10,43 @@ const titleToSite = choice => {
   let site = '';
   switch (choice) {
     case 'Gizmodo':
-      site = 'gizmodo.com';
+      site = 'https://gizmodo.com';
       break;
     case 'The A.V. Club':
-      site = 'avclub.com';
+      site = 'https://avclub.com';
       break;
     case 'Deadspin':
-      site = 'deadspin.com';
+      site = 'https://deadspin.com';
       break;
     case 'Jalopnik':
-      site = 'jalopnik.com';
+      site = 'https://jalopnik.com';
       break;
     case 'Jezebel':
-      site = 'jezebel.com';
+      site = 'https://jezebel.com';
       break;
     case 'Kotaku':
-      site = 'kotaku.com';
+      site = 'https://kotaku.com';
       break;
     case 'Lifehacker':
-      site = 'lifehacker.com';
+      site = 'https://lifehacker.com';
       break;
     case 'Splinter':
-      site = 'splinternews.com';
+      site = 'https://splinternews.com';
       break;
     case 'The Root':
-      site = 'theroot.com';
+      site = 'https://theroot.com';
       break;
     case 'The Takeout':
-      site = 'thetakeout.com';
+      site = 'https://thetakeout.com';
       break;
     case 'Clickhole':
-      site = 'clickhole.com';
+      site = 'https://clickhole.com';
       break;
     case 'The Onion':
-      site = 'theonion.com';
+      site = 'https://theonion.com';
       break;
     case 'The Inventory':
-      site = 'theinventory.com';
+      site = 'https://theinventory.com';
       break;
     default:
       console.log("This shouldn't happen");

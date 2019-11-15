@@ -1,5 +1,5 @@
-const db = require('../models');
-const scrape = require('../scripts/scrape');
+const db = require("../models");
+const { scrape } = require("../scripts/scrape");
 
 module.exports = {
   findAll: (req, res) => {
@@ -14,8 +14,12 @@ module.exports = {
       .then(dbModel => res.status(200).json(dbModel))
       .catch(err => res.status(401).json(err));
   },
-  scrapeById: (req, res) => {
+  scrapeById: async (req, res) => {
     const choice = req.params.id;
-    scrape(choice, res);
-  },
+    await scrape(choice);
+    db.Headline.find({})
+      .sort({ date: -1 })
+      .then(dbModel => res.status(200).json(dbModel))
+      .catch(err => res.status(401).json(err));
+  }
 };
