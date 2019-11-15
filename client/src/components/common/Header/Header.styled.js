@@ -7,6 +7,7 @@ export const Container = styled.nav`
   color: ${props => props.theme.white || '#fff'};
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Button = styled(DefaultButton)`

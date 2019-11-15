@@ -16,9 +16,10 @@ const HeadlineSchema = new Schema({
     type: String,
     required: true
   },
-  summary: {
-    type: String
-  },
+  tags: [{
+    text: String,
+    link: String,
+  }],
   date: { type: Date, default: Date.now }
 });
 

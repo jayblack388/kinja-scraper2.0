@@ -28,6 +28,22 @@ export const DropdownMenu = styled(animated.ul)`
     width: 80rem;
     right: -40rem;
     ` : ''}
+    @media (max-width: 50rem) {
+      width: 100vw;
+      height:100vh;
+      flex-direction: column;
+      top: -5vh;
+      right: -50vw;
+      z-index: 10;
+      overflow-y: hidden;
+      button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+      li {
+        width: 40vw;
+      }
+    }
 `;
 
 export const DropdownItem = styled.li`
