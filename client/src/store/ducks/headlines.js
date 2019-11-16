@@ -6,7 +6,7 @@ export const GET_HEADLINES_SUCCESS = 'GET_HEADLINES_SUCCESS';
 export const GET_HEADLINES_FAILURE = 'GET_HEADLINES_FAILURE';
 export const SORT_HEADLINES_SUCCESS = 'SORT_HEADLINES_SUCCESS';
 
-const titleToSite = choice => {
+export const titleToSite = choice => {
   let site = '';
   switch (choice) {
     case 'Gizmodo':
@@ -54,46 +54,46 @@ const titleToSite = choice => {
   return site;
 };
 
-const siteToTitle = choice => {
+export const siteToTitle = choice => {
   let site = '';
   switch (choice) {
-    case 'gizmodo.com':
+    case 'https://gizmodo.com':
       site = 'Gizmodo';
       break;
-    case 'avclub.com':
+    case 'https://avclub.com':
       site = 'The A.V. Club';
       break;
-    case 'deadspin.com':
+    case 'https://deadspin.com':
       site = 'Deadspin';
       break;
-    case 'jalopnik.com':
+    case 'https://jalopnik.com':
       site = 'Jalopnik';
       break;
-    case 'jezebel.com':
+    case 'https://jezebel.com':
       site = 'Jezebel';
       break;
-    case 'kotaku.com':
+    case 'https://kotaku.com':
       site = 'Kotaku';
       break;
-    case 'lifehacker.com':
+    case 'https://lifehacker.com':
       site = 'Lifehacker';
       break;
-    case 'splinternews.com':
+    case 'https://splinternews.com':
       site = 'Splinter';
       break;
-    case 'theroot.com':
+    case 'https://theroot.com':
       site = 'The Root';
       break;
-    case 'thetakeout.com':
+    case 'https://thetakeout.com':
       site = 'The Takeout';
       break;
-    case 'clickhole.com':
+    case 'https://clickhole.com':
       site = 'Clickhole';
       break;
-    case 'theonion.com':
+    case 'https://theonion.com':
       site = 'The Onion';
       break;
-    case 'theinventory.com':
+    case 'https://theinventory.com':
       site = 'The Inventory';
       break;
     default:
