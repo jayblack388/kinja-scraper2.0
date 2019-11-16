@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Container } from "./Header.styled";
 import { BrandLink, Dropdown } from "../";
 import { useGlobalState } from "../../../store/GlobalState";
-import { sortHeadlines, scrapeHeadlines, titleToSite } from "../../../store/ducks/headlines";
+import { sortHeadlines, scrapeHeadlines } from "../../../store/ducks/headlines";
 
 const ScrapeDropDown = props => {
   const { sites, dispatch } = props;
@@ -11,8 +11,7 @@ const ScrapeDropDown = props => {
     scrapeHeadlines({ dispatch, choice });
     setOpen(false);
   };
-  const parsedSites = titleToSite(sites)
-  const items = parsedSites.map((site, i) => {
+  const items = sites.map((site, i) => {
     return <Button key={site} message={site} onClick={() => scrapeClick(site)} />;
   });
   return (
