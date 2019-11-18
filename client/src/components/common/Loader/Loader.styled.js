@@ -20,8 +20,8 @@ export const Loader = styled.div`
   height: 32px;
   margin-right: 1rem;
   display: inline-block;
-  border: 4px ${props => props.theme.darkens.border || '#ebebeb'} solid;
-  border-top: 4px ${props => props.theme.primaryColor || '#000'} solid;
+  border: 4px ${props => props.theme.colors.border || '#ebebeb'} solid;
+  border-top: 4px ${props => props.theme.colors.primary || '#000'} solid;
   border-radius: 50%;
   -webkit-animation: ${rotate} 0.8s infinite ease-in-out;
   animation: ${rotate} 0.8s infinite ease-in-out;

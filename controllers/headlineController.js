@@ -1,5 +1,5 @@
 const db = require("../models");
-const { scrape } = require("../scripts/scrape");
+const { scrape, scrapeAllWithLogging } = require("../scripts/scrape");
 const titleToSite = choice => {
   let site = "";
   switch (choice) {
@@ -64,7 +64,11 @@ module.exports = {
   scrapeById: async (req, res) => {
     const title = req.params.id;
     const choice = titleToSite(title);
-    await scrape(choice);
+    if (title === "All") {
+      await scrapeAllWithLogging();
+    } else {
+      await scrape(choice);
+    }
     db.Headline.find({})
       .sort({ date: -1 })
       .then(dbModel => res.status(200).json(dbModel))

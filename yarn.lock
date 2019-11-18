@@ -6014,10 +6014,10 @@ istanbul-reports@^2.2.6:
   dependencies:
     handlebars "^4.1.2"
 
-jdb-components@^0.1.37:
-  version "0.1.37"
-  resolved "https://registry.yarnpkg.com/jdb-components/-/jdb-components-0.1.37.tgz#a683f4d8608375e0de960db36f5b8c36a8df1956"
-  integrity sha512-E7vUQCvz9mA+ej8GvmMi0apIgO05kvl4H/Wa25QMd0WVpoPYhSYwA7+17DxLepDG99fuiNcskDweYoodGnnfSg==
+jdb-components@^0.1.38:
+  version "0.1.38"
+  resolved "https://registry.yarnpkg.com/jdb-components/-/jdb-components-0.1.38.tgz#c8dcb72474380624a3c0254a078e4b20064712f9"
+  integrity sha512-R/H40d63mlqeqHBc+9oZQtnMMVdEUTF8H2lXHd4L64yRIsrumLIgvJyIyEi+lrn37bGIR3Z4dKJ2uEvRH/R+jQ==
   dependencies:
     "@reach/router" "^1.2.1"
     "@types/d3" "^5.7.2"
