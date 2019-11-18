@@ -1,59 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Button, Container } from "./Header.styled";
-import { BrandLink, Dropdown } from "../";
-import { useGlobalState } from "../../../store/GlobalState";
-import { sortHeadlines, scrapeHeadlines } from "../../../store/ducks/headlines";
-
-const ScrapeDropDown = props => {
-  const { sites, dispatch } = props;
-  const [open, setOpen] = useState(false);
-  const scrapeClick = choice => {
-    scrapeHeadlines({ dispatch, choice });
-    setOpen(false);
-  };
-  const items = sites.map((site, i) => {
-    return <Button key={site} message={site} onClick={() => scrapeClick(site)} />;
-  });
-  return (
-    <Dropdown
-      open={open}
-      menuProps={{ rowWidth: 7 }}
-      setOpen={setOpen}
-      message={"Scrape Kinja Sites"}
-      items={items}
-    />
-  );
-};
-const SortDropDown = props => {
-  const { sites, headlines, dispatch } = props;
-  const [message, setMessage] = useState("Sort Kinja Sites");
-  const [open, setOpen] = useState(false);
-  let sortSites = sites;
-  const sortClick = choice => {
-    setMessage(choice);
-    sortHeadlines({ dispatch, choice, headlines });
-    setOpen(false);
-  };
-  useEffect(() => {
-    sortSites.splice(0, 0, "All");
-  }, [sortSites]);
-  const items = sortSites.map((site, i) => (
-    <Button key={site} message={site} onClick={() => sortClick(site)} />
-  ));
-  return (
-    <Dropdown open={open} setOpen={setOpen} message={message} items={items} />
-  );
-};
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
+import { Nav as JDBHeader } from "jdb-components";
+import { BrandLink } from "../";
 
 const Header = props => {
-  const [{ headlines: headLinesState }, dispatch] = useGlobalState();
-  const { sites = [], allHeadlines: headlines = [], allSites } = headLinesState;
+  const theme = useContext(ThemeContext);
+  const menuText = {
+    openText: <BrandLink dark={theme.mode.darkMode} />,
+    closeText: <BrandLink dark={!theme.mode.darkMode} />
+  };
   return (
-    <Container>
-      <BrandLink />
-      <ScrapeDropDown sites={allSites} dispatch={dispatch} />
-      <SortDropDown sites={sites} headlines={headlines} dispatch={dispatch} />
-    </Container>
+    <JDBHeader
+      menuText={menuText}
+      headerColor="primary"
+      menuColor="secondary"
+      links={[{ name: "My Portfolio", path: "https://johnblackwell.dev" }]}
+      height='3.5rem'
+    />
   );
 };
 

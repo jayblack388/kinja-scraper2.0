@@ -44,7 +44,7 @@
     "color": "^3.1.2",
     "concurrently": "^5.0.0",
     "eslint-plugin-node": "^10.0.0",
-    "jdb-components": "^0.1.37",
+    "jdb-components": "^0.1.38",
     "jest": "^24.9.0",
     "nodemon": "^1.19.4",
     "react": "^16.11.0",

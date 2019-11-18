@@ -5,6 +5,6 @@ export * from './ExternalLink';
 export { default as Header } from './Header';
 export { default as Input } from './Input';
 export * from './Link';
-export { default as List } from './List';
+export * from './List';
 export { default as Loader } from './Loader';
 export { default as ToastContainer } from './ToastContainer';

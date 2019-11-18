@@ -16,7 +16,6 @@ const Routes = props => {
             </>
           )}
         />
-        {/* <Redirect to="/login" /> not sure why this isn't working */}
       </Switch>
     </div>
   );
